@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>JavaScript Mastery — Complete Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f9f9fb;
+    --grey-100: #f2f2f7;
+    --grey-200: #e5e5ea;
+    --grey-400: #aeaeb2;
+    --grey-600: #636366;
+    --grey-900: #1c1c1e;
+    --blue: #3a86ff;
+    --blue-light: #dbeafe;
+    --yellow: #fbbf24;
+    --yellow-light: #fef9c3;
+    --green: #34d399;
+    --green-light: #d1fae5;
+    --pink: #f472b6;
+    --pink-light: #fce7f3;
+    --purple: #a78bfa;
+    --purple-light: #ede9fe;
+    --orange: #fb923c;
+    --orange-light: #ffedd5;
+    --teal: #2dd4bf;
+    --teal-light: #ccfbf1;
+    --red: #f87171;
+    --red-light: #fee2e2;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --radius: 18px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 20px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 32px rgba(0,0,0,0.09);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--grey-900);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--grey-200);
+    padding: 0 20px;
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 56px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--grey-900);
+    white-space: nowrap;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--yellow); }
+
+  .nav-pill {
+    flex-shrink: 0;
+    background: var(--grey-100);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey-600);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+  }
+  .nav-pill:hover { background: var(--grey-200); color: var(--grey-900); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--white);
+    padding: 56px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--grey-200);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--yellow-light);
+    color: #92400e;
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 8vw, 54px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--grey-900);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--grey-600);
+    max-width: 500px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .chip {
+    background: var(--grey-100);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey-600);
+  }
+
+  /* ── CONTENT WRAPPER ── */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 20px;
+  }
+
+  .section-label .icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-label h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    color: var(--grey-900);
+  }
+
+  .section-label .count {
+    background: var(--grey-200);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--grey-600);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    border: 1px solid var(--grey-200);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--grey-900);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .tag {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .tag-beginner { background: var(--green-light); color: #065f46; }
+  .tag-intermediate { background: var(--blue-light); color: #1e40af; }
+  .tag-advanced { background: var(--purple-light); color: #5b21b6; }
+  .tag-expert { background: var(--pink-light); color: #9d174d; }
+  .tag-tool { background: var(--orange-light); color: #9a3412; }
+  .tag-daily { background: var(--green-light); color: #065f46; }
+  .tag-weekly { background: var(--blue-light); color: #1e40af; }
+  .tag-monthly { background: var(--purple-light); color: #5b21b6; }
+
+  .card p { color: var(--grey-600); font-size: 15px; margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--grey-100);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--grey-900);
+    overflow-x: auto;
+    margin: 12px 0;
+    border: 1px solid var(--grey-200);
+    position: relative;
+  }
+
+  .code-block .comment { color: var(--grey-400); }
+  .code-block .kw { color: var(--blue); font-weight: 600; }
+  .code-block .str { color: var(--green); }
+  .code-block .fn { color: var(--purple); }
+  .code-block .num { color: var(--orange); }
+
+  /* ── LIST ── */
+  .item-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+  .item-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--grey-600);
+  }
+
+  .item-list li::before {
+    content: '→';
+    color: var(--blue);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── TWO-COL GRID ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── MINI CARD (used in grids) ── */
+  .mini-card {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--grey-200);
+  }
+
+  .mini-card h4 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .mini-card p { font-size: 14px; color: var(--grey-600); margin: 0; }
+
+  /* ── BEST PRACTICE BOX ── */
+  .best-practice {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #065f46;
+  }
+
+  .best-practice strong { display: block; margin-bottom: 4px; font-weight: 600; }
+
+  /* ── WARNING BOX ── */
+  .warning {
+    background: var(--yellow-light);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #78350f;
+  }
+
+  .warning strong { display: block; margin-bottom: 4px; font-weight: 600; }
+
+  /* ── HEALTH CHECK CARD ── */
+  .health-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    border: 1px solid var(--grey-200);
+  }
+
+  .health-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .health-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .health-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .meta-pill {
+    background: var(--grey-100);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--grey-600);
+  }
+
+  .meta-pill span { color: var(--grey-900); }
+
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .check-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--grey-600);
+    padding: 10px 12px;
+    background: var(--grey-100);
+    border-radius: var(--radius-sm);
+  }
+
+  .check-list li .check-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-list li strong { color: var(--grey-900); display: block; font-size: 14px; }
+
+  /* ── PROGRESS TRACKER ── */
+  .toc-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--grey-200);
+    margin: 28px 0 0;
+  }
+
+  .toc-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    margin-bottom: 14px;
+    color: var(--grey-900);
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  @media (max-width: 480px) { .toc-grid { grid-template-columns: 1fr; } }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--grey-600);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .toc-item:hover { background: var(--grey-100); color: var(--grey-900); }
+  .toc-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--grey-200);
+    margin: 8px 0 16px;
+  }
+
+  /* ── SCROLL TOP ── */
+  #scrollTop {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--grey-900);
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    z-index: 200;
+    transition: opacity 0.2s;
+  }
+
+  #scrollTop.visible { display: flex; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 13px;
+    color: var(--grey-400);
+    border-top: 1px solid var(--grey-200);
+    background: var(--white);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">JS<span>•</span></span>
+    <a href="#foundations" class="nav-pill">Foundations</a>
+    <a href="#types" class="nav-pill">Types</a>
+    <a href="#functions" class="nav-pill">Functions</a>
+    <a href="#objects" class="nav-pill">Objects</a>
+    <a href="#arrays" class="nav-pill">Arrays</a>
+    <a href="#async" class="nav-pill">Async</a>
+    <a href="#dom" class="nav-pill">DOM</a>
+    <a href="#es6" class="nav-pill">ES6+</a>
+    <a href="#modules" class="nav-pill">Modules</a>
+    <a href="#oop" class="nav-pill">OOP</a>
+    <a href="#patterns" class="nav-pill">Patterns</a>
+    <a href="#performance" class="nav-pill">Performance</a>
+    <a href="#security" class="nav-pill">Security</a>
+    <a href="#testing" class="nav-pill">Testing</a>
+    <a href="#tools" class="nav-pill">Tools</a>
+    <a href="#health" class="nav-pill">Health Check</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📘 Complete Mastery Course</div>
+  <h1>The <em>JavaScript</em><br>Bible</h1>
+  <p>Everything you need to go from zero to expert. No shortcuts, no skipped topics — the real, complete picture.</p>
+  <div class="hero-chips">
+    <span class="chip">⚡ Beginner → Expert</span>
+    <span class="chip">🧪 With Best Practices</span>
+    <span class="chip">🛠️ Tools Included</span>
+    <span class="chip">🏥 Health Checks</span>
+    <span class="chip">📱 Mobile Friendly</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc-card">
+    <h3>📚 Course Outline</h3>
+    <div class="toc-grid">
+      <a href="#foundations" class="toc-item"><span class="dot" style="background:var(--yellow)"></span>1. Foundations & History</a>
+      <a href="#types" class="toc-item"><span class="dot" style="background:var(--blue)"></span>2. Data Types & Variables</a>
+      <a href="#operators" class="toc-item"><span class="dot" style="background:var(--green)"></span>3. Operators & Expressions</a>
+      <a href="#control" class="toc-item"><span class="dot" style="background:var(--pink)"></span>4. Control Flow</a>
+      <a href="#functions" class="toc-item"><span class="dot" style="background:var(--purple)"></span>5. Functions</a>
+      <a href="#scope" class="toc-item"><span class="dot" style="background:var(--orange)"></span>6. Scope & Closures</a>
+      <a href="#objects" class="toc-item"><span class="dot" style="background:var(--teal)"></span>7. Objects</a>
+      <a href="#arrays" class="toc-item"><span class="dot" style="background:var(--red)"></span>8. Arrays</a>
+      <a href="#strings" class="toc-item"><span class="dot" style="background:var(--blue)"></span>9. Strings & RegEx</a>
+      <a href="#async" class="toc-item"><span class="dot" style="background:var(--yellow)"></span>10. Async JavaScript</a>
+      <a href="#dom" class="toc-item"><span class="dot" style="background:var(--green)"></span>11. DOM & Browser APIs</a>
+      <a href="#events" class="toc-item"><span class="dot" style="background:var(--pink)"></span>12. Events</a>
+      <a href="#es6" class="toc-item"><span class="dot" style="background:var(--purple)"></span>13. ES6+ Modern JS</a>
+      <a href="#modules" class="toc-item"><span class="dot" style="background:var(--orange)"></span>14. Modules</a>
+      <a href="#oop" class="toc-item"><span class="dot" style="background:var(--teal)"></span>15. OOP & Classes</a>
+      <a href="#fp" class="toc-item"><span class="dot" style="background:var(--red)"></span>16. Functional Programming</a>
+      <a href="#patterns" class="toc-item"><span class="dot" style="background:var(--blue)"></span>17. Design Patterns</a>
+      <a href="#error" class="toc-item"><span class="dot" style="background:var(--yellow)"></span>18. Error Handling</a>
+      <a href="#performance" class="toc-item"><span class="dot" style="background:var(--green)"></span>19. Performance</a>
+      <a href="#security" class="toc-item"><span class="dot" style="background:var(--pink)"></span>20. Security</a>
+      <a href="#testing" class="toc-item"><span class="dot" style="background:var(--purple)"></span>21. Testing</a>
+      <a href="#tools" class="toc-item"><span class="dot" style="background:var(--orange)"></span>22. Tools & Ecosystem</a>
+      <a href="#node" class="toc-item"><span class="dot" style="background:var(--teal)"></span>23. Node.js</a>
+      <a href="#advanced" class="toc-item"><span class="dot" style="background:var(--red)"></span>24. Advanced Concepts</a>
+      <a href="#health" class="toc-item"><span class="dot" style="background:var(--yellow)"></span>25. JS Health Check</a>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 1. FOUNDATIONS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="foundations">
+    <div class="icon" style="background:var(--yellow-light)">🌱</div>
+    <h2>1. Foundations & History</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">What is JavaScript? <span class="tag tag-beginner">Beginner</span></div>
+    <p>JavaScript (JS) is a lightweight, interpreted, multi-paradigm programming language. It is the only language that runs natively in web browsers, making it the backbone of the web alongside HTML and CSS.</p>
+    <p><strong>Key traits:</strong></p>
+    <ul class="item-list">
+      <li>Dynamically typed — types are determined at runtime</li>
+      <li>Single-threaded — one call stack, one task at a time</li>
+      <li>Event-driven — responds to user interactions, timers, network events</li>
+      <li>First-class functions — functions are values, can be passed around</li>
+      <li>Prototype-based — inheritance via prototype chains, not classical OOP</li>
+      <li>Runs in browsers AND server (Node.js), mobile (React Native), desktop (Electron)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Brief History <span class="tag tag-beginner">Beginner</span></div>
+    <ul class="item-list">
+      <li><strong>1995</strong> — Brendan Eich creates JS in 10 days at Netscape. Originally called Mocha, then LiveScript, then JavaScript.</li>
+      <li><strong>1997</strong> — ECMAScript 1 standardized by ECMA International (TC39 committee).</li>
+      <li><strong>2009</strong> — ES5: strict mode, JSON, Array methods.</li>
+      <li><strong>2009</strong> — Node.js released. JS escapes the browser.</li>
+      <li><strong>2015</strong> — ES6/ES2015: biggest update ever. Classes, arrow functions, let/const, Promises, modules.</li>
+      <li><strong>2016–present</strong> — Yearly releases: ES2016, ES2017, … ES2024.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">How JavaScript Runs <span class="tag tag-beginner">Beginner</span></div>
+    <p>JavaScript runs inside a <strong>JavaScript Engine</strong>. Every browser has one:</p>
+    <div class="grid-2">
+      <div class="mini-card"><h4>V8</h4><p>Google Chrome, Node.js, Edge (Chromium)</p></div>
+      <div class="mini-card"><h4>SpiderMonkey</h4><p>Mozilla Firefox</p></div>
+      <div class="mini-card"><h4>JavaScriptCore</h4><p>Safari, iOS WebKit</p></div>
+      <div class="mini-card"><h4>Hermes</h4><p>React Native (Meta)</p></div>
+    </div>
+    <p style="margin-top:12px">The engine <strong>parses → compiles (JIT) → executes</strong> your code. Modern engines use Just-In-Time compilation to turn JS into optimized machine code at runtime.</p>
+    <p><strong>Runtime environment adds:</strong> Web APIs (setTimeout, fetch, DOM), Event Loop, Callback Queue, Microtask Queue.</p>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 2. DATA TYPES -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="types">
+    <div class="icon" style="background:var(--blue-light)">🔤</div>
+    <h2>2. Data Types & Variables</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Declaring Variables <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// var — function-scoped, hoisted, avoid in modern JS</span>
+<span class="kw">var</span> name = <span class="str">"Alice"</span>;
+
+<span class="comment">// let — block-scoped, re-assignable</span>
+<span class="kw">let</span> age = <span class="num">30</span>;
+age = <span class="num">31</span>; <span class="comment">// ✅ allowed</span>
+
+<span class="comment">// const — block-scoped, not re-assignable (but objects are mutable!)</span>
+<span class="kw">const</span> PI = <span class="num">3.14159</span>;
+PI = <span class="num">3</span>; <span class="comment">// ❌ TypeError</span>
+
+<span class="kw">const</span> user = { name: <span class="str">"Alice"</span> };
+user.name = <span class="str">"Bob"</span>; <span class="comment">// ✅ allowed — object reference is const, not content</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Default to <code>const</code>. Use <code>let</code> only when you need to reassign. Never use <code>var</code> in modern code.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">The 8 Primitive Types <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// 1. Number — 64-bit IEEE 754 float</span>
+<span class="kw">let</span> n = <span class="num">42</span>;          <span class="comment">// integers AND decimals are all "number"</span>
+<span class="kw">let</span> inf = <span class="num">Infinity</span>;
+<span class="kw">let</span> nan = <span class="num">NaN</span>;         <span class="comment">// "Not a Number" — result of invalid math</span>
+
+<span class="comment">// 2. BigInt — arbitrary precision integers</span>
+<span class="kw">let</span> big = <span class="num">9007199254740991n</span>;
+
+<span class="comment">// 3. String</span>
+<span class="kw">let</span> s1 = <span class="str">'single quotes'</span>;
+<span class="kw">let</span> s2 = <span class="str">"double quotes"</span>;
+<span class="kw">let</span> s3 = <span class="str">`template literal: ${n + 1}`</span>;
+
+<span class="comment">// 4. Boolean</span>
+<span class="kw">let</span> isReady = <span class="kw">true</span>;
+
+<span class="comment">// 5. undefined — variable declared but not assigned</span>
+<span class="kw">let</span> x;   <span class="comment">// undefined</span>
+
+<span class="comment">// 6. null — intentional absence of value</span>
+<span class="kw">let</span> y = <span class="kw">null</span>;
+
+<span class="comment">// 7. Symbol — unique, immutable identifier</span>
+<span class="kw">const</span> id = Symbol(<span class="str">"id"</span>);
+
+<span class="comment">// 8. Object (non-primitive reference type)</span>
+<span class="kw">const</span> obj = { key: <span class="str">"value"</span> };
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Type Coercion & typeof <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// typeof returns a string</span>
+<span class="kw">typeof</span> <span class="num">42</span>          <span class="comment">// "number"</span>
+<span class="kw">typeof</span> <span class="str">"hello"</span>     <span class="comment">// "string"</span>
+<span class="kw">typeof</span> <span class="kw">true</span>        <span class="comment">// "boolean"</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span>   <span class="comment">// "undefined"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>        <span class="comment">// "object" ← famous JS bug, keep it in mind!</span>
+<span class="kw">typeof</span> {}          <span class="comment">// "object"</span>
+<span class="kw">typeof</span> []          <span class="comment">// "object" ← arrays are objects!</span>
+<span class="kw">typeof</span> <span class="fn">function</span>(){} <span class="comment">// "function"</span>
+
+<span class="comment">// Implicit coercion (== loose equality — avoid!)</span>
+<span class="num">0</span> == <span class="str">"0"</span>          <span class="comment">// true ← coercion happens</span>
+<span class="num">0</span> === <span class="str">"0"</span>         <span class="comment">// false ← strict equality, no coercion</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Always use <code>===</code> (strict equality) instead of <code>==</code>. Implicit coercion causes hard-to-find bugs.</div>
+    <div class="warning"><strong>⚠️ Falsy values</strong> These are all falsy: <code>false, 0, "", null, undefined, NaN, 0n</code>. Everything else is truthy — including empty arrays <code>[]</code> and empty objects <code>{}</code>!</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 3. OPERATORS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="operators">
+    <div class="icon" style="background:var(--green-light)">➕</div>
+    <h2>3. Operators & Expressions</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">All Operator Types <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Arithmetic</span>
++ - * / % **      <span class="comment">// add, sub, mul, div, modulo, exponent</span>
+
+<span class="comment">// Assignment</span>
+= += -= *= /= **= %= &&= ||= ??=
+
+<span class="comment">// Comparison</span>
+== != === !== > < >= <=
+
+<span class="comment">// Logical</span>
+&& || !            <span class="comment">// AND, OR, NOT</span>
+??                 <span class="comment">// Nullish coalescing — returns right side if left is null/undefined</span>
+
+<span class="comment">// Bitwise (rarely used in web dev)</span>
+& | ^ ~ << >> >>>
+
+<span class="comment">// Ternary</span>
+<span class="kw">const</span> label = age >= <span class="num">18</span> ? <span class="str">"adult"</span> : <span class="str">"minor"</span>;
+
+<span class="comment">// Optional chaining — safe property access</span>
+user?.profile?.avatar  <span class="comment">// won't throw if user or profile is null</span>
+
+<span class="comment">// Spread operator</span>
+<span class="kw">const</span> arr = [...arr1, ...arr2];
+
+<span class="comment">// typeof, instanceof, in, delete, void</span>
+<span class="str">"name"</span> <span class="kw">in</span> obj          <span class="comment">// true/false</span>
+obj <span class="kw">instanceof</span> Array  <span class="comment">// true/false</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 4. CONTROL FLOW -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="control">
+    <div class="icon" style="background:var(--pink-light)">🔀</div>
+    <h2>4. Control Flow</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Conditionals <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// if / else if / else</span>
+<span class="kw">if</span> (score >= <span class="num">90</span>) {
+  console.<span class="fn">log</span>(<span class="str">"A"</span>);
+} <span class="kw">else if</span> (score >= <span class="num">80</span>) {
+  console.<span class="fn">log</span>(<span class="str">"B"</span>);
+} <span class="kw">else</span> {
+  console.<span class="fn">log</span>(<span class="str">"C or below"</span>);
+}
+
+<span class="comment">// switch</span>
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="str">"Mon"</span>: console.<span class="fn">log</span>(<span class="str">"Start of week"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="str">"Fri"</span>: console.<span class="fn">log</span>(<span class="str">"TGIF"</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>: console.<span class="fn">log</span>(<span class="str">"Midweek"</span>);
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Loops <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// for loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < <span class="num">5</span>; i++) { console.<span class="fn">log</span>(i); }
+
+<span class="comment">// while</span>
+<span class="kw">while</span> (condition) { <span class="comment">/* ... */</span> }
+
+<span class="comment">// do...while (runs at least once)</span>
+<span class="kw">do</span> { <span class="comment">/* ... */</span> } <span class="kw">while</span> (condition);
+
+<span class="comment">// for...of — iterate VALUES of iterables (arrays, strings, maps)</span>
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> array) { console.<span class="fn">log</span>(item); }
+
+<span class="comment">// for...in — iterate KEYS of objects (use carefully!)</span>
+<span class="kw">for</span> (<span class="kw">const</span> key <span class="kw">in</span> obj) { console.<span class="fn">log</span>(key, obj[key]); }
+
+<span class="comment">// break / continue</span>
+<span class="kw">break</span>;    <span class="comment">// exits loop</span>
+<span class="kw">continue</span>; <span class="comment">// skips to next iteration</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Prefer <code>for...of</code> for arrays. Prefer <code>.forEach()</code>, <code>.map()</code>, <code>.filter()</code> for functional-style iteration. Avoid <code>for...in</code> on arrays — it iterates prototype properties too.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 5. FUNCTIONS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="functions">
+    <div class="icon" style="background:var(--purple-light)">ƒ</div>
+    <h2>5. Functions</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Function Declaration vs Expression <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Function Declaration — hoisted, usable before defined</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+}
+
+<span class="comment">// Function Expression — not hoisted</span>
+<span class="kw">const</span> <span class="fn">greet</span> = <span class="kw">function</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+};
+
+<span class="comment">// Arrow Function (ES6) — concise, no own 'this'</span>
+<span class="kw">const</span> <span class="fn">greet</span> = (name) => <span class="str">`Hello, ${name}!`</span>;
+<span class="kw">const</span> <span class="fn">double</span> = n => n * <span class="num">2</span>;         <span class="comment">// single param, implicit return</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) => a + b;
+
+<span class="comment">// IIFE — Immediately Invoked Function Expression</span>
+(<span class="kw">function</span>() {
+  console.<span class="fn">log</span>(<span class="str">"runs immediately"</span>);
+})();
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Parameters & Arguments <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Default parameters</span>
+<span class="kw">function</span> <span class="fn">log</span>(msg, level = <span class="str">"info"</span>) {
+  console.<span class="fn">log</span>(`[${level}] ${msg}`);
+}
+
+<span class="comment">// Rest parameters — collects remaining args into array</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums) {
+  <span class="kw">return</span> nums.<span class="fn">reduce</span>((a, b) => a + b, <span class="num">0</span>);
+}
+
+<span class="comment">// arguments object (old way, not in arrow functions)</span>
+<span class="kw">function</span> <span class="fn">old</span>() {
+  console.<span class="fn">log</span>(arguments); <span class="comment">// array-like, not a real array</span>
+}
+
+<span class="comment">// Destructuring in params</span>
+<span class="kw">function</span> <span class="fn">display</span>({ name, age = <span class="num">0</span> }) {
+  console.<span class="fn">log</span>(name, age);
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Higher-Order Functions <span class="tag tag-intermediate">Intermediate</span></div>
+    <p>A higher-order function takes a function as argument or returns a function. This is at the heart of functional JavaScript.</p>
+    <div class="code-block">
+<span class="comment">// Function that takes a function</span>
+<span class="kw">function</span> <span class="fn">applyTwice</span>(fn, value) {
+  <span class="kw">return</span> <span class="fn">fn</span>(<span class="fn">fn</span>(value));
+}
+<span class="fn">applyTwice</span>(x => x * <span class="num">2</span>, <span class="num">3</span>); <span class="comment">// 12</span>
+
+<span class="comment">// Function that returns a function (factory)</span>
+<span class="kw">function</span> <span class="fn">multiplier</span>(factor) {
+  <span class="kw">return</span> (n) => n * factor;
+}
+<span class="kw">const</span> triple = <span class="fn">multiplier</span>(<span class="num">3</span>);
+<span class="fn">triple</span>(<span class="num">5</span>); <span class="comment">// 15</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 6. SCOPE & CLOSURES -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="scope">
+    <div class="icon" style="background:var(--orange-light)">🔭</div>
+    <h2>6. Scope & Closures</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Scope Types <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Global scope — accessible everywhere</span>
+<span class="kw">var</span> globalVar = <span class="str">"I'm global"</span>;
+
+<span class="comment">// Function scope</span>
+<span class="kw">function</span> <span class="fn">myFn</span>() {
+  <span class="kw">let</span> local = <span class="str">"only here"</span>;
+}
+
+<span class="comment">// Block scope (let/const)</span>
+{
+  <span class="kw">let</span> blockVar = <span class="str">"only in this block"</span>;
+  <span class="kw">const</span> also = <span class="str">"block scoped"</span>;
+}
+
+<span class="comment">// Lexical scope — inner functions see outer scope</span>
+<span class="kw">function</span> <span class="fn">outer</span>() {
+  <span class="kw">let</span> x = <span class="num">10</span>;
+  <span class="kw">function</span> <span class="fn">inner</span>() {
+    console.<span class="fn">log</span>(x); <span class="comment">// 10 — can see x from outer</span>
+  }
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Closures <span class="tag tag-intermediate">Intermediate</span></div>
+    <p>A closure is a function that <strong>remembers its lexical scope</strong> even when called outside that scope. This is one of the most powerful features of JavaScript.</p>
+    <div class="code-block">
+<span class="kw">function</span> <span class="fn">makeCounter</span>() {
+  <span class="kw">let</span> count = <span class="num">0</span>;
+  <span class="kw">return</span> {
+    increment: () => ++count,
+    decrement: () => --count,
+    value: () => count
+  };
+}
+
+<span class="kw">const</span> counter = <span class="fn">makeCounter</span>();
+counter.<span class="fn">increment</span>(); <span class="comment">// 1</span>
+counter.<span class="fn">increment</span>(); <span class="comment">// 2</span>
+counter.<span class="fn">value</span>();    <span class="comment">// 2 — count is private, only accessible via methods</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Use closures to create private state, module patterns, and factory functions. They are essential for understanding React hooks, event listeners, and memoization.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Hoisting <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Function declarations are fully hoisted</span>
+<span class="fn">hello</span>(); <span class="comment">// ✅ works before declaration</span>
+<span class="kw">function</span> <span class="fn">hello</span>() { console.<span class="fn">log</span>(<span class="str">"hi"</span>); }
+
+<span class="comment">// var is hoisted but value is not</span>
+console.<span class="fn">log</span>(x); <span class="comment">// undefined (not ReferenceError)</span>
+<span class="kw">var</span> x = <span class="num">5</span>;
+
+<span class="comment">// let/const are NOT hoisted (Temporal Dead Zone)</span>
+console.<span class="fn">log</span>(y); <span class="comment">// ❌ ReferenceError</span>
+<span class="kw">let</span> y = <span class="num">5</span>;
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 7. OBJECTS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="objects">
+    <div class="icon" style="background:var(--teal-light)">📦</div>
+    <h2>7. Objects</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Object Basics <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Object literal</span>
+<span class="kw">const</span> user = {
+  name: <span class="str">"Alice"</span>,
+  age: <span class="num">30</span>,
+  isAdmin: <span class="kw">false</span>,
+  <span class="fn">greet</span>() {
+    <span class="kw">return</span> <span class="str">`Hi, I'm ${this.name}`</span>;
+  }
+};
+
+<span class="comment">// Access</span>
+user.name;          <span class="comment">// dot notation</span>
+user[<span class="str">"name"</span>];       <span class="comment">// bracket notation (needed for dynamic keys)</span>
+
+<span class="comment">// Add / update / delete</span>
+user.email = <span class="str">"alice@example.com"</span>;
+<span class="kw">delete</span> user.isAdmin;
+
+<span class="comment">// Computed property names</span>
+<span class="kw">const</span> key = <span class="str">"score"</span>;
+<span class="kw">const</span> obj = { [key]: <span class="num">100</span> }; <span class="comment">// { score: 100 }</span>
+
+<span class="comment">// Shorthand properties (ES6)</span>
+<span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="kw">const</span> age = <span class="num">30</span>;
+<span class="kw">const</span> person = { name, age }; <span class="comment">// same as { name: name, age: age }</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Destructuring <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Object destructuring</span>
+<span class="kw">const</span> { name, age, role = <span class="str">"user"</span> } = user;
+
+<span class="comment">// Rename while destructuring</span>
+<span class="kw">const</span> { name: userName } = user;
+
+<span class="comment">// Nested destructuring</span>
+<span class="kw">const</span> { address: { city } } = user;
+
+<span class="comment">// In function parameters</span>
+<span class="kw">function</span> <span class="fn">render</span>({ title, body, footer = <span class="str">""</span> }) { ... }
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Object Methods <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+Object.<span class="fn">keys</span>(obj)         <span class="comment">// array of keys</span>
+Object.<span class="fn">values</span>(obj)       <span class="comment">// array of values</span>
+Object.<span class="fn">entries</span>(obj)      <span class="comment">// array of [key, value] pairs</span>
+Object.<span class="fn">assign</span>({}, obj)  <span class="comment">// shallow copy</span>
+Object.<span class="fn">freeze</span>(obj)      <span class="comment">// make immutable (shallow)</span>
+Object.<span class="fn">create</span>(proto)    <span class="comment">// create obj with prototype</span>
+Object.<span class="fn">fromEntries</span>(entries) <span class="comment">// convert entries to object</span>
+
+<span class="comment">// Spread — shallow copy / merge</span>
+<span class="kw">const</span> copy = { ...obj };
+<span class="kw">const</span> merged = { ...obj1, ...obj2 };
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Use spread <code>{ ...obj }</code> for shallow copies. For deep cloning use <code>structuredClone(obj)</code> (modern) or <code>JSON.parse(JSON.stringify(obj))</code> (legacy, loses functions/dates).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prototype Chain <span class="tag tag-advanced">Advanced</span></div>
+    <p>Every JS object has a hidden <code>[[Prototype]]</code> link. Property lookup travels up the chain until it reaches <code>null</code>.</p>
+    <div class="code-block">
+<span class="kw">const</span> animal = { breathes: <span class="kw">true</span> };
+<span class="kw">const</span> dog = Object.<span class="fn">create</span>(animal);
+dog.barks = <span class="kw">true</span>;
+
+dog.breathes; <span class="comment">// true — found on prototype</span>
+dog.barks;    <span class="comment">// true — own property</span>
+
+<span class="comment">// Check own vs inherited</span>
+dog.<span class="fn">hasOwnProperty</span>(<span class="str">"barks"</span>);    <span class="comment">// true</span>
+dog.<span class="fn">hasOwnProperty</span>(<span class="str">"breathes"</span>); <span class="comment">// false</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 8. ARRAYS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="arrays">
+    <div class="icon" style="background:var(--red-light)">📋</div>
+    <h2>8. Arrays</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Array Basics & Mutation Methods <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="kw">const</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+
+<span class="comment">// Add / remove</span>
+arr.<span class="fn">push</span>(<span class="num">4</span>);      <span class="comment">// add to end → [1,2,3,4]</span>
+arr.<span class="fn">pop</span>();       <span class="comment">// remove from end</span>
+arr.<span class="fn">unshift</span>(<span class="num">0</span>); <span class="comment">// add to start → [0,1,2,3]</span>
+arr.<span class="fn">shift</span>();     <span class="comment">// remove from start</span>
+arr.<span class="fn">splice</span>(<span class="num">1</span>, <span class="num">2</span>); <span class="comment">// remove 2 items at index 1</span>
+arr.<span class="fn">splice</span>(<span class="num">1</span>, <span class="num">0</span>, <span class="str">"a"</span>); <span class="comment">// insert "a" at index 1</span>
+
+<span class="comment">// Info</span>
+arr.length;
+arr.<span class="fn">indexOf</span>(<span class="num">2</span>);       <span class="comment">// index of value, -1 if not found</span>
+arr.<span class="fn">includes</span>(<span class="num">2</span>);     <span class="comment">// true/false</span>
+arr.<span class="fn">findIndex</span>(x => x > <span class="num">2</span>); <span class="comment">// index of first match</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Functional Array Methods <span class="tag tag-intermediate">Intermediate</span></div>
+    <p>These methods return a new array and never mutate the original. They are essential for modern JavaScript.</p>
+    <div class="code-block">
+<span class="kw">const</span> nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+<span class="comment">// .map() — transform each element</span>
+nums.<span class="fn">map</span>(n => n * <span class="num">2</span>);          <span class="comment">// [2,4,6,8,10]</span>
+
+<span class="comment">// .filter() — keep elements that pass test</span>
+nums.<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>); <span class="comment">// [2,4]</span>
+
+<span class="comment">// .reduce() — fold into single value</span>
+nums.<span class="fn">reduce</span>((acc, n) => acc + n, <span class="num">0</span>); <span class="comment">// 15</span>
+
+<span class="comment">// .find() — first element that passes test</span>
+nums.<span class="fn">find</span>(n => n > <span class="num">3</span>);          <span class="comment">// 4</span>
+
+<span class="comment">// .some() / .every()</span>
+nums.<span class="fn">some</span>(n => n > <span class="num">4</span>);          <span class="comment">// true</span>
+nums.<span class="fn">every</span>(n => n > <span class="num">0</span>);         <span class="comment">// true</span>
+
+<span class="comment">// .flat() / .flatMap()</span>
+[[<span class="num">1</span>,<span class="num">2</span>],[<span class="num">3</span>,<span class="num">4</span>]].<span class="fn">flat</span>();              <span class="comment">// [1,2,3,4]</span>
+nums.<span class="fn">flatMap</span>(n => [n, n * <span class="num">2</span>]);   <span class="comment">// [1,2,2,4,3,6,...]</span>
+
+<span class="comment">// .sort() — mutates! use with compare fn</span>
+[<span class="num">3</span>,<span class="num">1</span>,<span class="num">2</span>].<span class="fn">sort</span>((a, b) => a - b);   <span class="comment">// [1,2,3]</span>
+
+<span class="comment">// Chaining</span>
+nums
+  .<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>)
+  .<span class="fn">map</span>(n => n ** <span class="num">2</span>);              <span class="comment">// [4, 16]</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Prefer <code>.map()</code>, <code>.filter()</code>, <code>.reduce()</code> over loops for transforming data. They are declarative, composable, and avoid mutation. Always provide the initial value for <code>.reduce()</code>.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Array Destructuring & Spread <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Destructuring</span>
+<span class="kw">const</span> [first, second, ...rest] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>];
+<span class="comment">// first=1, second=2, rest=[3,4]</span>
+
+<span class="comment">// Swap variables</span>
+[a, b] = [b, a];
+
+<span class="comment">// Spread — copy / merge arrays</span>
+<span class="kw">const</span> combined = [...arr1, ...arr2];
+<span class="kw">const</span> copy = [...arr];
+
+<span class="comment">// Array.from()</span>
+Array.<span class="fn">from</span>(<span class="str">"hello"</span>);  <span class="comment">// ["h","e","l","l","o"]</span>
+Array.<span class="fn">from</span>({ length: <span class="num">3</span> }, (_, i) => i); <span class="comment">// [0,1,2]</span>
+
+<span class="comment">// Array.of()</span>
+Array.<span class="fn">of</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>); <span class="comment">// [1,2,3]</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 9. STRINGS & REGEX -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="strings">
+    <div class="icon" style="background:var(--blue-light)">🔡</div>
+    <h2>9. Strings & Regular Expressions</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">String Methods <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="kw">const</span> s = <span class="str">"  Hello, World!  "</span>;
+
+s.<span class="fn">length</span>;                      <span class="comment">// 18</span>
+s.<span class="fn">trim</span>();                       <span class="comment">// "Hello, World!"</span>
+s.<span class="fn">trimStart</span>() / s.<span class="fn">trimEnd</span>();
+s.<span class="fn">toUpperCase</span>() / s.<span class="fn">toLowerCase</span>();
+s.<span class="fn">includes</span>(<span class="str">"World"</span>);            <span class="comment">// true</span>
+s.<span class="fn">startsWith</span>(<span class="str">"  H"</span>);           <span class="comment">// true</span>
+s.<span class="fn">endsWith</span>(<span class="str">"!  "</span>);             <span class="comment">// true</span>
+s.<span class="fn">indexOf</span>(<span class="str">"o"</span>);                <span class="comment">// 5</span>
+s.<span class="fn">lastIndexOf</span>(<span class="str">"o"</span>);            <span class="comment">// 9</span>
+s.<span class="fn">slice</span>(<span class="num">2</span>, <span class="num">7</span>);                  <span class="comment">// "Hello"</span>
+s.<span class="fn">replace</span>(<span class="str">"World"</span>, <span class="str">"JS"</span>);      <span class="comment">// replaces first</span>
+s.<span class="fn">replaceAll</span>(<span class="str">"l"</span>, <span class="str">"L"</span>);
+s.<span class="fn">split</span>(<span class="str">", "</span>);                  <span class="comment">// ["  Hello", "World!  "]</span>
+s.<span class="fn">padStart</span>(<span class="num">10</span>, <span class="str">"0"</span>);
+s.<span class="fn">padEnd</span>(<span class="num">10</span>, <span class="str">"-"</span>);
+s.<span class="fn">repeat</span>(<span class="num">3</span>);
+s[<span class="num">0</span>];                           <span class="comment">// " " — char access</span>
+s.<span class="fn">at</span>(-<span class="num">1</span>);                       <span class="comment">// "!" — negative indexing</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Regular Expressions <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Literal / Constructor</span>
+<span class="kw">const</span> re = /hello/i;           <span class="comment">// i = case insensitive</span>
+<span class="kw">const</span> re2 = <span class="kw">new</span> <span class="fn">RegExp</span>(<span class="str">"hello"</span>, <span class="str">"i"</span>);
+
+<span class="comment">// Flags: i=case insensitive, g=global, m=multiline, s=dotAll, u=unicode</span>
+
+<span class="comment">// Test</span>
+/\d+/.<span class="fn">test</span>(<span class="str">"abc123"</span>);  <span class="comment">// true</span>
+
+<span class="comment">// Match</span>
+<span class="str">"hello world"</span>.<span class="fn">match</span>(/\w+/g); <span class="comment">// ["hello","world"]</span>
+
+<span class="comment">// Replace</span>
+<span class="str">"2024-01-15"</span>.<span class="fn">replace</span>(/(\d{4})-(\d{2})-(\d{2})/, <span class="str">"$3/$2/$1"</span>);
+
+<span class="comment">// Common patterns</span>
+/^\d{10}$/        <span class="comment">// 10-digit number</span>
+/^[a-zA-Z0-9]+$/  <span class="comment">// alphanumeric only</span>
+/^[\w.-]+@[\w-]+\.\w{2,}$/ <span class="comment">// simple email</span>
+/https?:\/\/\S+/  <span class="comment">// URL</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 10. ASYNC -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="async">
+    <div class="icon" style="background:var(--yellow-light)">⏳</div>
+    <h2>10. Async JavaScript</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">The Event Loop <span class="tag tag-advanced">Advanced</span></div>
+    <p>JavaScript is single-threaded. The <strong>Event Loop</strong> allows it to be non-blocking via asynchronous callbacks.</p>
+    <div class="code-block">
+<span class="comment">// Call Stack — synchronous, LIFO execution</span>
+<span class="comment">// Web APIs — browser handles setTimeout, fetch, DOM events</span>
+<span class="comment">// Callback Queue — callbacks from Web APIs wait here</span>
+<span class="comment">// Microtask Queue — Promises go here (higher priority than callbacks)</span>
+
+console.<span class="fn">log</span>(<span class="str">"1"</span>);                   <span class="comment">// sync</span>
+<span class="fn">setTimeout</span>(() => console.<span class="fn">log</span>(<span class="str">"2"</span>), <span class="num">0</span>); <span class="comment">// macrotask queue</span>
+Promise.<span class="fn">resolve</span>().<span class="fn">then</span>(() => console.<span class="fn">log</span>(<span class="str">"3"</span>)); <span class="comment">// microtask queue</span>
+console.<span class="fn">log</span>(<span class="str">"4"</span>);                   <span class="comment">// sync</span>
+
+<span class="comment">// Output: 1, 4, 3, 2</span>
+<span class="comment">// Microtasks (Promises) run before macrotasks (setTimeout)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Callbacks → Promises → Async/Await <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// 1. Callbacks (old way — leads to "callback hell")</span>
+<span class="fn">getData</span>(id, <span class="kw">function</span>(err, data) {
+  <span class="kw">if</span> (err) <span class="kw">return</span> console.<span class="fn">error</span>(err);
+  <span class="fn">processData</span>(data, <span class="kw">function</span>(err2, result) { ... });
+});
+
+<span class="comment">// 2. Promises</span>
+<span class="kw">const</span> p = <span class="kw">new</span> <span class="fn">Promise</span>((resolve, reject) => {
+  <span class="fn">setTimeout</span>(() => <span class="fn">resolve</span>(<span class="str">"done"</span>), <span class="num">1000</span>);
+});
+
+p.<span class="fn">then</span>(result => console.<span class="fn">log</span>(result))
+ .<span class="fn">catch</span>(err => console.<span class="fn">error</span>(err))
+ .<span class="fn">finally</span>(() => console.<span class="fn">log</span>(<span class="str">"cleanup"</span>));
+
+<span class="comment">// 3. Async/Await (modern, cleanest)</span>
+<span class="kw">async function</span> <span class="fn">fetchUser</span>(id) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(`/api/users/${id}`);
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"HTTP error"</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    <span class="kw">return</span> data;
+  } <span class="kw">catch</span> (err) {
+    console.<span class="fn">error</span>(<span class="str">"Failed:"</span>, err);
+  }
+}
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Always use <code>async/await</code> with <code>try/catch</code>. Never let Promises go unhandled — always attach <code>.catch()</code> or wrap in try/catch. Handle errors at the right level.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Promise Combinators <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Promise.all — all must resolve, fails fast on any rejection</span>
+<span class="kw">const</span> [user, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([<span class="fn">fetchUser</span>(), <span class="fn">fetchPosts</span>()]);
+
+<span class="comment">// Promise.allSettled — waits for all, reports each status</span>
+<span class="kw">const</span> results = <span class="kw">await</span> Promise.<span class="fn">allSettled</span>([p1, p2, p3]);
+
+<span class="comment">// Promise.race — first to settle wins</span>
+<span class="kw">const</span> fastest = <span class="kw">await</span> Promise.<span class="fn">race</span>([fetchFromCDN1(), fetchFromCDN2()]);
+
+<span class="comment">// Promise.any — first to RESOLVE wins (ignores rejections)</span>
+<span class="kw">const</span> first = <span class="kw">await</span> Promise.<span class="fn">any</span>([p1, p2, p3]);
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 11. DOM -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="dom">
+    <div class="icon" style="background:var(--green-light)">🌐</div>
+    <h2>11. DOM & Browser APIs</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DOM Selection & Traversal <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Selection</span>
+document.<span class="fn">getElementById</span>(<span class="str">"myId"</span>);
+document.<span class="fn">querySelector</span>(<span class="str">".myClass"</span>);      <span class="comment">// first match</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">"div.card"</span>);  <span class="comment">// NodeList</span>
+
+<span class="comment">// Traversal</span>
+el.parentElement;
+el.children;         <span class="comment">// HTMLCollection (elements only)</span>
+el.childNodes;       <span class="comment">// NodeList (includes text, comments)</span>
+el.firstElementChild / el.lastElementChild;
+el.nextElementSibling / el.previousElementSibling;
+el.<span class="fn">closest</span>(<span class="str">".card"</span>); <span class="comment">// walk up DOM until selector matches</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DOM Manipulation <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// Create & insert</span>
+<span class="kw">const</span> div = document.<span class="fn">createElement</span>(<span class="str">"div"</span>);
+div.textContent = <span class="str">"Hello"</span>;
+div.className = <span class="str">"card"</span>;
+document.body.<span class="fn">appendChild</span>(div);
+parent.<span class="fn">insertBefore</span>(newEl, referenceEl);
+parent.<span class="fn">append</span>(el1, el2, <span class="str">"text"</span>); <span class="comment">// modern, accepts multiple</span>
+el.<span class="fn">before</span>(newEl);  el.<span class="fn">after</span>(newEl);
+
+<span class="comment">// Content</span>
+el.innerHTML = <span class="str">"<strong>Bold</strong>"</span>; <span class="comment">// ⚠️ XSS risk with user input!</span>
+el.textContent = <span class="str">"Safe text"</span>; <span class="comment">// ✅ always safe</span>
+el.innerText;        <span class="comment">// respects CSS visibility</span>
+
+<span class="comment">// Attributes & Classes</span>
+el.<span class="fn">setAttribute</span>(<span class="str">"data-id"</span>, <span class="str">"42"</span>);
+el.<span class="fn">getAttribute</span>(<span class="str">"data-id"</span>);
+el.dataset.id;       <span class="comment">// data-* attributes</span>
+el.classList.<span class="fn">add</span>(<span class="str">"active"</span>);
+el.classList.<span class="fn">remove</span>(<span class="str">"active"</span>);
+el.classList.<span class="fn">toggle</span>(<span class="str">"active"</span>);
+el.classList.<span class="fn">contains</span>(<span class="str">"active"</span>);
+
+<span class="comment">// Styles</span>
+el.style.color = <span class="str">"red"</span>;
+el.style.cssText = <span class="str">"color:red; font-size:16px"</span>;
+<span class="fn">getComputedStyle</span>(el).color; <span class="comment">// actual computed style</span>
+
+<span class="comment">// Remove</span>
+el.<span class="fn">remove</span>();
+parent.<span class="fn">removeChild</span>(el);
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Never use <code>innerHTML</code> with untrusted user data — it leads to XSS attacks. Use <code>textContent</code> for text, or sanitize with DOMPurify for HTML.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Key Browser APIs <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>localStorage / sessionStorage</h4><p>Synchronous key-value storage. localStorage persists; sessionStorage clears on tab close.</p></div>
+      <div class="mini-card"><h4>fetch API</h4><p>Modern HTTP requests. Returns a Promise. Use with async/await.</p></div>
+      <div class="mini-card"><h4>History API</h4><p><code>pushState()</code>, <code>replaceState()</code> for SPA routing without page reload.</p></div>
+      <div class="mini-card"><h4>Geolocation API</h4><p><code>navigator.geolocation.getCurrentPosition()</code> — get user's location.</p></div>
+      <div class="mini-card"><h4>Intersection Observer</h4><p>Detect when elements enter/exit viewport. Used for lazy loading, infinite scroll.</p></div>
+      <div class="mini-card"><h4>Web Workers</h4><p>Run scripts in background threads. Good for CPU-heavy tasks without blocking UI.</p></div>
+      <div class="mini-card"><h4>Clipboard API</h4><p><code>navigator.clipboard.writeText()</code> — copy/paste programmatically.</p></div>
+      <div class="mini-card"><h4>Web Notifications</h4><p><code>Notification.requestPermission()</code> and <code>new Notification()</code>.</p></div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 12. EVENTS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="events">
+    <div class="icon" style="background:var(--pink-light)">⚡</div>
+    <h2>12. Events</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Event Listeners & the Event Object <span class="tag tag-beginner">Beginner</span></div>
+    <div class="code-block">
+<span class="comment">// addEventListener (preferred)</span>
+el.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (event) => {
+  event.<span class="fn">preventDefault</span>();     <span class="comment">// stop default browser behavior</span>
+  event.<span class="fn">stopPropagation</span>();     <span class="comment">// stop event from bubbling</span>
+  console.<span class="fn">log</span>(event.target);   <span class="comment">// element that triggered event</span>
+  console.<span class="fn">log</span>(event.currentTarget); <span class="comment">// element with listener</span>
+});
+
+<span class="comment">// Remove listener</span>
+el.<span class="fn">removeEventListener</span>(<span class="str">"click"</span>, handler);
+
+<span class="comment">// Run once</span>
+el.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler, { once: <span class="kw">true</span> });
+
+<span class="comment">// Common events</span>
+<span class="comment">// Mouse: click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout</span>
+<span class="comment">// Keyboard: keydown, keyup, keypress</span>
+<span class="comment">// Form: submit, change, input, focus, blur</span>
+<span class="comment">// Window: load, resize, scroll, DOMContentLoaded</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Event Delegation <span class="tag tag-intermediate">Intermediate</span></div>
+    <p>Instead of attaching listeners to many elements, attach ONE listener to a parent and use <code>event.target</code> to identify the source. Efficient and works for dynamically added elements.</p>
+    <div class="code-block">
+<span class="comment">// Instead of this (attaches listener to every button):</span>
+buttons.<span class="fn">forEach</span>(btn => btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler));
+
+<span class="comment">// Do this (one listener on parent):</span>
+list.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (e) => {
+  <span class="kw">if</span> (e.target.<span class="fn">matches</span>(<span class="str">"button.delete"</span>)) {
+    <span class="kw">const</span> id = e.target.dataset.id;
+    <span class="fn">deleteItem</span>(id);
+  }
+});
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 13. ES6+ FEATURES -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="es6">
+    <div class="icon" style="background:var(--purple-light)">✨</div>
+    <h2>13. ES6+ Modern JavaScript</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ES6 (2015) Key Features <span class="tag tag-intermediate">Intermediate</span></div>
+    <ul class="item-list">
+      <li><strong>let / const</strong> — block-scoped variables</li>
+      <li><strong>Arrow functions</strong> — <code>const fn = () => {}</code></li>
+      <li><strong>Template literals</strong> — <code>`Hello ${name}`</code></li>
+      <li><strong>Destructuring</strong> — <code>const { a, b } = obj;</code></li>
+      <li><strong>Spread / Rest</strong> — <code>...arr</code></li>
+      <li><strong>Default parameters</strong> — <code>function fn(x = 0) {}</code></li>
+      <li><strong>Classes</strong> — syntactic sugar over prototypes</li>
+      <li><strong>Promises</strong> — <code>new Promise((res, rej) => {})</code></li>
+      <li><strong>Modules</strong> — <code>import</code> / <code>export</code></li>
+      <li><strong>Map / Set</strong> — new collection types</li>
+      <li><strong>Symbol</strong> — unique identifiers</li>
+      <li><strong>Iterators / Generators</strong> — custom iteration protocols</li>
+      <li><strong>Proxy / Reflect</strong> — intercept object operations</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ES2017–ES2024 Notable Additions <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// ES2017</span>
+<span class="kw">async</span> / <span class="kw">await</span>
+Object.<span class="fn">entries</span>() / Object.<span class="fn">values</span>()
+String.prototype.<span class="fn">padStart</span>() / <span class="fn">padEnd</span>()
+
+<span class="comment">// ES2019</span>
+arr.<span class="fn">flat</span>() / arr.<span class="fn">flatMap</span>()
+Object.<span class="fn">fromEntries</span>()
+String.prototype.<span class="fn">trimStart</span>() / <span class="fn">trimEnd</span>()
+
+<span class="comment">// ES2020</span>
+<span class="kw">const</span> val = obj?.prop?.nested ?? <span class="str">"default"</span>; <span class="comment">// optional chaining + nullish</span>
+Promise.<span class="fn">allSettled</span>()
+BigInt
+globalThis                  <span class="comment">// universal global object reference</span>
+
+<span class="comment">// ES2021</span>
+str.<span class="fn">replaceAll</span>()
+Promise.<span class="fn">any</span>()
+Logical assignment: &&= ||= ??=
+Numeric separators: <span class="num">1_000_000</span>
+
+<span class="comment">// ES2022</span>
+<span class="kw">class</span> fields: #privateField
+arr.<span class="fn">at</span>(-<span class="num">1</span>)              <span class="comment">// negative indexing</span>
+Object.<span class="fn">hasOwn</span>(obj, key) <span class="comment">// replaces hasOwnProperty</span>
+<span class="kw">await</span> at top level in modules (Top-level await)
+
+<span class="comment">// ES2023</span>
+arr.<span class="fn">toSorted</span>() / <span class="fn">toReversed</span>() / <span class="fn">toSpliced</span>() <span class="comment">// non-mutating!</span>
+arr.<span class="fn">findLast</span>() / <span class="fn">findLastIndex</span>()
+
+<span class="comment">// ES2024</span>
+Object.<span class="fn">groupBy</span>() / Map.<span class="fn">groupBy</span>()
+Promise.<span class="fn">withResolvers</span>()
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Map & Set <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Map — key-value pairs, any type as key</span>
+<span class="kw">const</span> map = <span class="kw">new</span> <span class="fn">Map</span>();
+map.<span class="fn">set</span>(<span class="str">"key"</span>, <span class="str">"value"</span>);
+map.<span class="fn">set</span>(obj, <span class="num">42</span>);          <span class="comment">// objects as keys!</span>
+map.<span class="fn">get</span>(<span class="str">"key"</span>);             <span class="comment">// "value"</span>
+map.<span class="fn">has</span>(<span class="str">"key"</span>);             <span class="comment">// true</span>
+map.size;                    <span class="comment">// 2</span>
+<span class="kw">for</span> (<span class="kw">const</span> [key, val] <span class="kw">of</span> map) { ... }
+
+<span class="comment">// Set — unique values only</span>
+<span class="kw">const</span> set = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>]); <span class="comment">// {1, 2, 3}</span>
+set.<span class="fn">add</span>(<span class="num">4</span>);  set.<span class="fn">has</span>(<span class="num">2</span>);  set.<span class="fn">delete</span>(<span class="num">2</span>);
+set.size;    <span class="comment">// 3</span>
+
+<span class="comment">// Remove duplicates from array</span>
+<span class="kw">const</span> unique = [...<span class="kw">new</span> <span class="fn">Set</span>(arr)];
+
+<span class="comment">// WeakMap / WeakSet — keys must be objects, not iterable, GC-friendly</span>
+<span class="kw">const</span> wm = <span class="kw">new</span> <span class="fn">WeakMap</span>();
+wm.<span class="fn">set</span>(domElement, metadata);
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Generators & Iterators <span class="tag tag-advanced">Advanced</span></div>
+    <div class="code-block">
+<span class="comment">// Generator function — pauses with yield</span>
+<span class="kw">function</span>* <span class="fn">counter</span>() {
+  <span class="kw">let</span> i = <span class="num">0</span>;
+  <span class="kw">while</span> (<span class="kw">true</span>) <span class="kw">yield</span> i++;
+}
+
+<span class="kw">const</span> gen = <span class="fn">counter</span>();
+gen.<span class="fn">next</span>().value; <span class="comment">// 0</span>
+gen.<span class="fn">next</span>().value; <span class="comment">// 1</span>
+
+<span class="comment">// Custom iterable</span>
+<span class="kw">const</span> range = {
+  [Symbol.iterator]() {
+    <span class="kw">let</span> n = <span class="num">0</span>;
+    <span class="kw">return</span> {
+      <span class="fn">next</span>() {
+        <span class="kw">return</span> n < <span class="num">5</span> ? { value: n++, done: <span class="kw">false</span> } : { done: <span class="kw">true</span> };
+      }
+    };
+  }
+};
+
+<span class="kw">for</span> (<span class="kw">const</span> n <span class="kw">of</span> range) console.<span class="fn">log</span>(n); <span class="comment">// 0,1,2,3,4</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 14. MODULES -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="modules">
+    <div class="icon" style="background:var(--orange-light)">📦</div>
+    <h2>14. Modules</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ES Modules (ESM) <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// math.js — named exports</span>
+<span class="kw">export</span> <span class="kw">const</span> PI = <span class="num">3.14</span>;
+<span class="kw">export function</span> <span class="fn">add</span>(a, b) { <span class="kw">return</span> a + b; }
+
+<span class="comment">// math.js — default export</span>
+<span class="kw">export default function</span> <span class="fn">calculate</span>(a, b) { ... }
+
+<span class="comment">// main.js — importing</span>
+<span class="kw">import</span> calculate <span class="kw">from</span> <span class="str">"./math.js"</span>;         <span class="comment">// default</span>
+<span class="kw">import</span> { PI, add } <span class="kw">from</span> <span class="str">"./math.js"</span>;       <span class="comment">// named</span>
+<span class="kw">import</span> * <span class="kw">as</span> Math <span class="kw">from</span> <span class="str">"./math.js"</span>;        <span class="comment">// namespace</span>
+<span class="kw">import</span> { add <span class="kw">as</span> sum } <span class="kw">from</span> <span class="str">"./math.js"</span>;   <span class="comment">// rename</span>
+
+<span class="comment">// Dynamic import (lazy loading)</span>
+<span class="kw">const</span> { default: chart } = <span class="kw">await import</span>(<span class="str">"./chart.js"</span>);
+
+<span class="comment">// In HTML</span>
+<span class="comment">// &lt;script type="module" src="main.js"&gt;&lt;/script&gt;</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Prefer named exports over default exports — they are easier to refactor and IDE-autocomplete works better. Use one export per file for simple utilities, but group related exports in a single file for cohesion.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 15. OOP & CLASSES -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="oop">
+    <div class="icon" style="background:var(--teal-light)">🏗️</div>
+    <h2>15. OOP & Classes</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Classes — Full Syntax <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="kw">class</span> Animal {
+  <span class="comment">// Public class fields (ES2022)</span>
+  species = <span class="str">"Unknown"</span>;
+  #sound = <span class="str">"..."</span>; <span class="comment">// private field</span>
+
+  <span class="kw">constructor</span>(name) {
+    this.name = name;
+  }
+
+  <span class="comment">// Instance method</span>
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${this.name} says ${this.#sound}`</span>;
+  }
+
+  <span class="comment">// Getter / Setter</span>
+  <span class="kw">get</span> <span class="fn">info</span>() { <span class="kw">return</span> <span class="str">`${this.name} (${this.species})`</span>; }
+  <span class="kw">set</span> <span class="fn">sound</span>(s) { this.#sound = s; }
+
+  <span class="comment">// Static method — called on class, not instance</span>
+  <span class="kw">static</span> <span class="fn">create</span>(name) { <span class="kw">return new</span> <span class="fn">Animal</span>(name); }
+}
+
+<span class="comment">// Inheritance</span>
+<span class="kw">class</span> Dog <span class="kw">extends</span> Animal {
+  <span class="kw">constructor</span>(name, breed) {
+    <span class="kw">super</span>(name);  <span class="comment">// call parent constructor</span>
+    this.breed = breed;
+  }
+
+  <span class="fn">speak</span>() {
+    <span class="kw">return super</span>.<span class="fn">speak</span>() + <span class="str">" (woof!)"</span>;
+  }
+}
+
+<span class="kw">const</span> dog = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>, <span class="str">"Labrador"</span>);
+dog instanceof Dog;    <span class="comment">// true</span>
+dog instanceof Animal; <span class="comment">// true</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Favor composition over inheritance. Deep inheritance chains are hard to maintain. Use <code>#privateFields</code> for true encapsulation instead of the underscore <code>_convention</code>.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 16. FUNCTIONAL PROGRAMMING -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="fp">
+    <div class="icon" style="background:var(--red-light)">λ</div>
+    <h2>16. Functional Programming</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Core FP Concepts <span class="tag tag-advanced">Advanced</span></div>
+    <div class="code-block">
+<span class="comment">// 1. Pure functions — same input, same output. No side effects.</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) => a + b; <span class="comment">// pure</span>
+
+<span class="comment">// 2. Immutability — never mutate, create new</span>
+<span class="kw">const</span> newArr = [...arr, newItem];    <span class="comment">// instead of arr.push()</span>
+<span class="kw">const</span> newObj = { ...obj, key: val }; <span class="comment">// instead of obj.key = val</span>
+
+<span class="comment">// 3. Function composition</span>
+<span class="kw">const</span> <span class="fn">compose</span> = (...fns) => x => fns.<span class="fn">reduceRight</span>((v, f) => <span class="fn">f</span>(v), x);
+<span class="kw">const</span> <span class="fn">pipe</span>    = (...fns) => x => fns.<span class="fn">reduce</span>((v, f) => <span class="fn">f</span>(v), x);
+
+<span class="kw">const</span> process = <span class="fn">pipe</span>(
+  trim,
+  toUpperCase,
+  removeSpecialChars
+);
+
+<span class="comment">// 4. Currying</span>
+<span class="kw">const</span> <span class="fn">multiply</span> = a => b => a * b;
+<span class="kw">const</span> double = <span class="fn">multiply</span>(<span class="num">2</span>);
+<span class="fn">double</span>(<span class="num">5</span>); <span class="comment">// 10</span>
+
+<span class="comment">// 5. Memoization</span>
+<span class="kw">function</span> <span class="fn">memoize</span>(fn) {
+  <span class="kw">const</span> cache = <span class="kw">new</span> <span class="fn">Map</span>();
+  <span class="kw">return</span> (...args) => {
+    <span class="kw">const</span> key = JSON.<span class="fn">stringify</span>(args);
+    <span class="kw">if</span> (cache.<span class="fn">has</span>(key)) <span class="kw">return</span> cache.<span class="fn">get</span>(key);
+    <span class="kw">const</span> result = fn.<span class="fn">apply</span>(<span class="kw">this</span>, args);
+    cache.<span class="fn">set</span>(key, result);
+    <span class="kw">return</span> result;
+  };
+}
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 17. DESIGN PATTERNS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="patterns">
+    <div class="icon" style="background:var(--blue-light)">🧩</div>
+    <h2>17. Design Patterns</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Essential JS Patterns <span class="tag tag-advanced">Advanced</span></div>
+    <div class="grid-2">
+      <div class="mini-card">
+        <h4>Module Pattern</h4>
+        <p>Use closures or ES modules to encapsulate private state and expose a public API.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Singleton</h4>
+        <p>Ensure only one instance of a class/object exists. Common in config managers, loggers.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Observer / PubSub</h4>
+        <p>Decouple event emitters from subscribers. <code>addEventListener</code> is observer pattern.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Factory</h4>
+        <p>Create objects without <code>new</code>. Functions that return configured objects.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Strategy</h4>
+        <p>Swap algorithms at runtime. Pass different functions for sorting, validation, rendering.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Proxy Pattern</h4>
+        <p>Intercept object operations with <code>new Proxy()</code>. Used in Vue 3's reactivity.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Decorator</h4>
+        <p>Wrap functions to add behavior. Used in logging, caching, validation.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Command</h4>
+        <p>Encapsulate actions as objects. Enables undo/redo, queuing, logging.</p>
+      </div>
+    </div>
+    <div class="code-block" style="margin-top:14px">
+<span class="comment">// Observer Pattern Example</span>
+<span class="kw">class</span> EventEmitter {
+  #listeners = <span class="kw">new</span> <span class="fn">Map</span>();
+
+  <span class="fn">on</span>(event, fn) {
+    <span class="kw">const</span> fns = this.#listeners.<span class="fn">get</span>(event) ?? [];
+    this.#listeners.<span class="fn">set</span>(event, [...fns, fn]);
+    <span class="kw">return</span> () => this.<span class="fn">off</span>(event, fn); <span class="comment">// unsubscribe</span>
+  }
+
+  <span class="fn">emit</span>(event, ...args) {
+    this.#listeners.<span class="fn">get</span>(event)?..<span class="fn">forEach</span>(fn => <span class="fn">fn</span>(...args));
+  }
+
+  <span class="fn">off</span>(event, fn) {
+    this.#listeners.<span class="fn">set</span>(event, this.#listeners.<span class="fn">get</span>(event).<span class="fn">filter</span>(f => f !== fn));
+  }
+}
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 18. ERROR HANDLING -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="error">
+    <div class="icon" style="background:var(--yellow-light)">🛡️</div>
+    <h2>18. Error Handling</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">try / catch / finally & Error Types <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="code-block">
+<span class="comment">// Basic try/catch</span>
+<span class="kw">try</span> {
+  <span class="kw">const</span> data = JSON.<span class="fn">parse</span>(invalidJSON);
+} <span class="kw">catch</span> (err) {
+  console.<span class="fn">error</span>(err.name);    <span class="comment">// "SyntaxError"</span>
+  console.<span class="fn">error</span>(err.message);
+  console.<span class="fn">error</span>(err.stack);
+} <span class="kw">finally</span> {
+  <span class="comment">// always runs, even if catch throws</span>
+}
+
+<span class="comment">// Built-in Error types</span>
+<span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"generic"</span>);
+<span class="kw">new</span> <span class="fn">TypeError</span>(<span class="str">"wrong type"</span>);
+<span class="kw">new</span> <span class="fn">RangeError</span>(<span class="str">"out of range"</span>);
+<span class="kw">new</span> <span class="fn">ReferenceError</span>(<span class="str">"not defined"</span>);
+<span class="kw">new</span> <span class="fn">SyntaxError</span>(<span class="str">"bad syntax"</span>);
+
+<span class="comment">// Custom errors</span>
+<span class="kw">class</span> ValidationError <span class="kw">extends</span> Error {
+  <span class="kw">constructor</span>(field, msg) {
+    <span class="kw">super</span>(msg);
+    this.name = <span class="str">"ValidationError"</span>;
+    this.field = field;
+  }
+}
+
+<span class="comment">// Global error handling</span>
+window.<span class="fn">addEventListener</span>(<span class="str">"error"</span>, e => console.<span class="fn">error</span>(e.error));
+window.<span class="fn">addEventListener</span>(<span class="str">"unhandledrejection"</span>, e => console.<span class="fn">error</span>(e.reason));
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Create custom error classes for domain-specific errors. Always handle Promise rejections. Use <code>window.onerror</code> and <code>unhandledrejection</code> for global error monitoring. In production, integrate an error tracking service (Sentry, Rollbar).</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 19. PERFORMANCE -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="performance">
+    <div class="icon" style="background:var(--green-light)">🚀</div>
+    <h2>19. Performance Optimization</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Core Performance Techniques <span class="tag tag-advanced">Advanced</span></div>
+    <ul class="item-list">
+      <li><strong>Debounce</strong> — Delay function execution until user stops triggering it (search input, resize).</li>
+      <li><strong>Throttle</strong> — Limit function to fire at most once per interval (scroll, mousemove).</li>
+      <li><strong>Lazy loading</strong> — Load modules / images only when needed with dynamic <code>import()</code>.</li>
+      <li><strong>Memoization</strong> — Cache expensive function results for same inputs.</li>
+      <li><strong>Virtual DOM / list virtualization</strong> — Only render visible items in long lists.</li>
+      <li><strong>Avoid layout thrashing</strong> — Batch DOM reads before writes. Reading <code>offsetWidth</code> then writing <code>style</code> in a loop forces reflow every iteration.</li>
+      <li><strong>requestAnimationFrame</strong> — Schedule visual updates to sync with browser repaint cycle.</li>
+      <li><strong>Web Workers</strong> — Offload CPU-heavy tasks to background thread.</li>
+      <li><strong>Code splitting</strong> — Use bundler (Vite/Webpack) to split code into smaller chunks.</li>
+      <li><strong>Tree shaking</strong> — Remove unused exports at build time.</li>
+    </ul>
+    <div class="code-block" style="margin-top:14px">
+<span class="comment">// Debounce implementation</span>
+<span class="kw">function</span> <span class="fn">debounce</span>(fn, delay) {
+  <span class="kw">let</span> timer;
+  <span class="kw">return</span> (...args) => {
+    <span class="fn">clearTimeout</span>(timer);
+    timer = <span class="fn">setTimeout</span>(() => <span class="fn">fn</span>(...args), delay);
+  };
+}
+
+<span class="comment">// Throttle implementation</span>
+<span class="kw">function</span> <span class="fn">throttle</span>(fn, interval) {
+  <span class="kw">let</span> last = <span class="num">0</span>;
+  <span class="kw">return</span> (...args) => {
+    <span class="kw">const</span> now = Date.<span class="fn">now</span>();
+    <span class="kw">if</span> (now - last >= interval) {
+      last = now;
+      <span class="fn">fn</span>(...args);
+    }
+  };
+}
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 20. SECURITY -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="security">
+    <div class="icon" style="background:var(--pink-light)">🔐</div>
+    <h2>20. JavaScript Security</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Common Vulnerabilities & Prevention <span class="tag tag-advanced">Advanced</span></div>
+    <div class="grid-2">
+      <div class="mini-card">
+        <h4>XSS (Cross-Site Scripting)</h4>
+        <p>Injecting malicious scripts via user input. <strong>Prevention:</strong> Never use <code>innerHTML</code> with user data. Use <code>textContent</code>. Sanitize with DOMPurify.</p>
+      </div>
+      <div class="mini-card">
+        <h4>CSRF</h4>
+        <p>Tricking users into making unwanted requests. <strong>Prevention:</strong> CSRF tokens, SameSite cookies, verify Origin headers.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Prototype Pollution</h4>
+        <p>Modifying <code>Object.prototype</code> via merge. <strong>Prevention:</strong> Use <code>Object.create(null)</code> for dictionaries, validate input keys.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Insecure eval()</h4>
+        <p><code>eval()</code> executes arbitrary strings as code. <strong>Prevention:</strong> Never use <code>eval()</code>. Use proper parsing/data structures instead.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Sensitive data in JS</h4>
+        <p>API keys in client-side code are exposed. <strong>Prevention:</strong> Never expose secrets in frontend. Use environment variables on server.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Clickjacking</h4>
+        <p>Embedding your site in an iframe. <strong>Prevention:</strong> Set <code>X-Frame-Options: DENY</code> or <code>Content-Security-Policy: frame-ancestors 'none'</code>.</p>
+      </div>
+    </div>
+    <div class="best-practice" style="margin-top:14px"><strong>✅ Best Practice</strong> Apply Content Security Policy (CSP) headers. Subresource Integrity (SRI) for CDN scripts. Validate all input on the server — never trust the client.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 21. TESTING -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="testing">
+    <div class="icon" style="background:var(--purple-light)">🧪</div>
+    <h2>21. Testing</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Types of Testing <span class="tag tag-intermediate">Intermediate</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>Unit Tests</h4><p>Test individual functions in isolation. Fast, precise. Use Jest, Vitest, Mocha.</p></div>
+      <div class="mini-card"><h4>Integration Tests</h4><p>Test how multiple units work together. APIs, database interactions.</p></div>
+      <div class="mini-card"><h4>E2E Tests</h4><p>Test complete user flows in a browser. Use Cypress, Playwright.</p></div>
+      <div class="mini-card"><h4>Snapshot Tests</h4><p>Detect unexpected UI changes. Common in React with Jest.</p></div>
+    </div>
+    <div class="code-block" style="margin-top:14px">
+<span class="comment">// Jest / Vitest example</span>
+<span class="kw">import</span> { add } <span class="kw">from</span> <span class="str">"./math"</span>;
+
+<span class="fn">describe</span>(<span class="str">"add()"</span>, () => {
+  <span class="fn">it</span>(<span class="str">"adds two positive numbers"</span>, () => {
+    <span class="fn">expect</span>(<span class="fn">add</span>(<span class="num">2</span>, <span class="num">3</span>)).<span class="fn">toBe</span>(<span class="num">5</span>);
+  });
+
+  <span class="fn">it</span>(<span class="str">"handles negatives"</span>, () => {
+    <span class="fn">expect</span>(<span class="fn">add</span>(-<span class="num">1</span>, <span class="num">1</span>)).<span class="fn">toBe</span>(<span class="num">0</span>);
+  });
+});
+
+<span class="comment">// Matchers: toBe, toEqual, toContain, toBeTruthy, toThrow, toHaveBeenCalled</span>
+<span class="comment">// Mocking: jest.fn(), jest.mock(), jest.spyOn()</span>
+    </div>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Follow the Testing Pyramid: many unit tests, fewer integration tests, a handful of E2E tests. Aim for 80%+ coverage on business logic. Write tests before fixing bugs — the test proves the bug exists and stays fixed.</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 22. TOOLS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="tools">
+    <div class="icon" style="background:var(--orange-light)">🛠️</div>
+    <h2>22. Tools & Ecosystem</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Package Managers <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>npm</h4><p>Node Package Manager. Ships with Node.js. Massive registry (2M+ packages).</p></div>
+      <div class="mini-card"><h4>pnpm</h4><p>Fast, disk-efficient. Uses hard links. Great for monorepos.</p></div>
+      <div class="mini-card"><h4>yarn</h4><p>Meta's alternative. Fast, deterministic lockfiles. Yarn workspaces for monorepos.</p></div>
+      <div class="mini-card"><h4>bun</h4><p>Ultra-fast all-in-one: runtime + bundler + test runner + package manager.</p></div>
+    </div>
+    <div class="code-block" style="margin-top:14px">
+npm init -y             <span class="comment"># create package.json</span>
+npm install lodash      <span class="comment"># install package</span>
+npm install -D vitest   <span class="comment"># dev dependency</span>
+npm run build           <span class="comment"># run script from package.json</span>
+npm update              <span class="comment"># update all packages</span>
+npm audit               <span class="comment"># check for vulnerabilities</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Bundlers & Build Tools <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>Vite ⭐</h4><p>Lightning-fast dev server using native ES modules. Best DX today. Use for React, Vue, Vanilla.</p></div>
+      <div class="mini-card"><h4>Webpack</h4><p>The OG bundler. Highly configurable. Still used in large legacy projects and Next.js.</p></div>
+      <div class="mini-card"><h4>Rollup</h4><p>Ideal for libraries. Excellent tree-shaking. Used by Vite under the hood for production builds.</p></div>
+      <div class="mini-card"><h4>esbuild</h4><p>Written in Go. Extremely fast. Used as Vite's internal JS transformer.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Transpilers & Type Checkers <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>TypeScript ⭐</h4><p>JS with static types. Catch bugs at compile time. Industry standard for large codebases.</p></div>
+      <div class="mini-card"><h4>Babel</h4><p>Transpile modern JS to older ES for browser compatibility. Handles JSX for React.</p></div>
+      <div class="mini-card"><h4>SWC</h4><p>Rust-based Babel alternative. 20x faster. Used by Next.js and Vite.</p></div>
+      <div class="mini-card"><h4>Flow</h4><p>Meta's type checker. Less popular than TypeScript today.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Linters & Formatters <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>ESLint ⭐</h4><p>Static analysis. Catches bugs, enforces code style. Highly configurable with plugins.</p></div>
+      <div class="mini-card"><h4>Prettier ⭐</h4><p>Opinionated code formatter. Eliminates style debates. Pair with ESLint.</p></div>
+      <div class="mini-card"><h4>Biome</h4><p>Rust-based ESLint + Prettier replacement. Very fast.</p></div>
+      <div class="mini-card"><h4>Stylelint</h4><p>Lint CSS/SCSS alongside JS. Good for enforcing CSS conventions.</p></div>
+    </div>
+    <div class="best-practice" style="margin-top:12px"><strong>✅ Best Practice</strong> Set up ESLint + Prettier from day one. Add a pre-commit hook (Husky + lint-staged) so code is automatically linted and formatted before every commit.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Testing Tools <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>Vitest ⭐</h4><p>Modern test runner powered by Vite. Drop-in Jest replacement. Fast and native ESM.</p></div>
+      <div class="mini-card"><h4>Jest</h4><p>Most popular test runner. Great ecosystem. CommonJS by default.</p></div>
+      <div class="mini-card"><h4>Playwright ⭐</h4><p>E2E testing across Chromium, Firefox, Safari. By Microsoft. Very reliable.</p></div>
+      <div class="mini-card"><h4>Cypress</h4><p>Visual E2E testing. Great DX with time-travel debugging.</p></div>
+      <div class="mini-card"><h4>Testing Library</h4><p>Test components how users interact. No implementation details. Framework-agnostic.</p></div>
+      <div class="mini-card"><h4>MSW (Mock Service Worker)</h4><p>Intercept network requests in tests. Mock APIs at the network level.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Debugging Tools <span class="tag tag-tool">Tool</span></div>
+    <ul class="item-list">
+      <li><strong>Chrome DevTools</strong> — Sources panel: set breakpoints, watch variables, step through code. Console: run JS live. Network: inspect requests. Performance: profiling.</li>
+      <li><strong>console methods</strong> — <code>console.log()</code>, <code>console.table()</code>, <code>console.group()</code>, <code>console.time()</code>, <code>console.trace()</code>, <code>console.assert()</code></li>
+      <li><strong>debugger statement</strong> — Place <code>debugger;</code> in code to pause execution in DevTools.</li>
+      <li><strong>VS Code Debugger</strong> — Full-featured debugging with breakpoints, watches, call stack directly in editor.</li>
+      <li><strong>React DevTools / Vue DevTools</strong> — Browser extensions for inspecting component trees and state.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Version Control & CI/CD <span class="tag tag-tool">Tool</span></div>
+    <div class="grid-2">
+      <div class="mini-card"><h4>Git ⭐</h4><p>Essential. Learn: init, add, commit, push, pull, branch, merge, rebase, stash, log, diff.</p></div>
+      <div class="mini-card"><h4>GitHub Actions</h4><p>Run tests, linting, deployments automatically on push/PR.</p></div>
+      <div class="mini-card"><h4>Husky</h4><p>Git hooks. Run ESLint/tests before commits or pushes.</p></div>
+      <div class="mini-card"><h4>Conventional Commits</h4><p>Standardized commit messages: feat:, fix:, docs:, chore:. Enables auto-changelog.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Frameworks & Libraries <span class="tag tag-tool">Tool</span></div>
+    <p>A JavaScript master knows the ecosystem, not just the frameworks:</p>
+    <div class="grid-2">
+      <div class="mini-card"><h4>React</h4><p>Component-based UI library by Meta. Hooks, JSX, Virtual DOM. Largest ecosystem.</p></div>
+      <div class="mini-card"><h4>Vue 3</h4><p>Progressive framework. Composition API, SFCs, excellent DX. Popular in Asia/Europe.</p></div>
+      <div class="mini-card"><h4>Angular</h4><p>Full framework by Google. TypeScript-first. Dependency injection. Enterprise-grade.</p></div>
+      <div class="mini-card"><h4>Svelte</h4><p>Compile-time framework. No virtual DOM. Tiny bundles. Reactive without a library.</p></div>
+      <div class="mini-card"><h4>Next.js</h4><p>React meta-framework. SSR, SSG, ISR, App Router, API routes. Production-ready.</p></div>
+      <div class="mini-card"><h4>Nuxt 3</h4><p>Vue meta-framework. Similar features to Next.js.</p></div>
+      <div class="mini-card"><h4>Express</h4><p>Minimal Node.js web framework. Routing, middleware. Great for REST APIs.</p></div>
+      <div class="mini-card"><h4>Fastify</h4><p>Fast Node.js framework. Better performance than Express with TypeScript support.</p></div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 23. NODE.JS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="node">
+    <div class="icon" style="background:var(--teal-light)">⚙️</div>
+    <h2>23. Node.js</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Node.js Essentials <span class="tag tag-intermediate">Intermediate</span></div>
+    <p>Node.js is a V8-powered JavaScript runtime for server-side development. It uses the same JS you know but replaces browser APIs with server APIs.</p>
+    <div class="code-block">
+<span class="comment">// File system</span>
+<span class="kw">import</span> fs <span class="kw">from</span> <span class="str">"node:fs/promises"</span>;
+<span class="kw">const</span> content = <span class="kw">await</span> fs.<span class="fn">readFile</span>(<span class="str">"./data.txt"</span>, <span class="str">"utf-8"</span>);
+<span class="kw">await</span> fs.<span class="fn">writeFile</span>(<span class="str">"./out.txt"</span>, <span class="str">"Hello"</span>);
+
+<span class="comment">// HTTP server</span>
+<span class="kw">import</span> http <span class="kw">from</span> <span class="str">"node:http"</span>;
+<span class="kw">const</span> server = http.<span class="fn">createServer</span>((req, res) => {
+  res.<span class="fn">writeHead</span>(<span class="num">200</span>, { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> });
+  res.<span class="fn">end</span>(JSON.<span class="fn">stringify</span>({ ok: <span class="kw">true</span> }));
+});
+server.<span class="fn">listen</span>(<span class="num">3000</span>);
+
+<span class="comment">// Environment variables</span>
+process.env.NODE_ENV;   <span class="comment">// "production" | "development"</span>
+process.env.MY_SECRET;  <span class="comment">// from .env file (via dotenv)</span>
+
+<span class="comment">// process object</span>
+process.argv;     <span class="comment">// command-line arguments</span>
+process.cwd();    <span class="comment">// current working directory</span>
+process.exit(<span class="num">1</span>); <span class="comment">// exit with error code</span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 24. ADVANCED CONCEPTS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="advanced">
+    <div class="icon" style="background:var(--red-light)">🧠</div>
+    <h2>24. Advanced Concepts</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Proxy & Reflect <span class="tag tag-expert">Expert</span></div>
+    <div class="code-block">
+<span class="kw">const</span> handler = {
+  <span class="fn">get</span>(target, key) {
+    console.<span class="fn">log</span>(<span class="str">`Getting ${key}`</span>);
+    <span class="kw">return</span> Reflect.<span class="fn">get</span>(target, key);
+  },
+  <span class="fn">set</span>(target, key, value) {
+    <span class="kw">if</span> (<span class="kw">typeof</span> value !== <span class="str">"number"</span>) <span class="kw">throw new</span> <span class="fn">TypeError</span>(<span class="str">"Must be a number"</span>);
+    <span class="kw">return</span> Reflect.<span class="fn">set</span>(target, key, value);
+  }
+};
+
+<span class="kw">const</span> obj = <span class="kw">new</span> <span class="fn">Proxy</span>({}, handler);
+obj.score = <span class="num">100</span>;  <span class="comment">// ✅ logs + sets</span>
+obj.score = <span class="str">"A"</span>; <span class="comment">// ❌ TypeError — Vue 3 uses this for reactivity!</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Symbol & Well-Known Symbols <span class="tag tag-expert">Expert</span></div>
+    <div class="code-block">
+<span class="comment">// Custom Symbol</span>
+<span class="kw">const</span> id = Symbol(<span class="str">"id"</span>);
+<span class="kw">const</span> user = { [id]: <span class="num">123</span>, name: <span class="str">"Alice"</span> };
+user[id]; <span class="comment">// 123 — not enumerable, won't show in for...in</span>
+
+<span class="comment">// Well-known symbols</span>
+<span class="comment">// Symbol.iterator — makes object iterable</span>
+<span class="comment">// Symbol.toPrimitive — control type conversion</span>
+<span class="comment">// Symbol.hasInstance — customize instanceof</span>
+<span class="comment">// Symbol.toStringTag — customize Object.prototype.toString</span>
+
+<span class="kw">class</span> MyArray {
+  <span class="kw">get</span> [Symbol.toStringTag]() { <span class="kw">return</span> <span class="str">"MyArray"</span>; }
+}
+Object.prototype.<span class="fn">toString</span>.<span class="fn">call</span>(<span class="kw">new</span> <span class="fn">MyArray</span>()); <span class="comment">// "[object MyArray]"</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Memory Management & Garbage Collection <span class="tag tag-expert">Expert</span></div>
+    <p>JS uses automatic garbage collection (mark-and-sweep algorithm). Memory is freed when no references to an object remain. Common leaks:</p>
+    <ul class="item-list">
+      <li><strong>Global variables</strong> — accidentally created globals never get collected</li>
+      <li><strong>Detached DOM nodes</strong> — DOM removed but JS still holds reference</li>
+      <li><strong>Unremoved event listeners</strong> — listeners on removed elements</li>
+      <li><strong>Closures holding large data</strong> — inner function keeps outer scope alive</li>
+      <li><strong>Timers not cleared</strong> — setInterval without clearInterval</li>
+    </ul>
+    <div class="best-practice"><strong>✅ Best Practice</strong> Use <code>WeakMap</code> and <code>WeakSet</code> for element-associated data — they don't prevent GC. Always clear intervals/timeouts. Remove event listeners when components unmount (framework lifecycle hooks).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Concurrency Patterns <span class="tag tag-expert">Expert</span></div>
+    <div class="code-block">
+<span class="comment">// Sequential async</span>
+<span class="kw">for</span> (<span class="kw">const</span> id <span class="kw">of</span> ids) {
+  <span class="kw">await</span> <span class="fn">processOne</span>(id); <span class="comment">// one at a time</span>
+}
+
+<span class="comment">// Parallel async (all at once)</span>
+<span class="kw">await</span> Promise.<span class="fn">all</span>(ids.<span class="fn">map</span>(id => <span class="fn">processOne</span>(id)));
+
+<span class="comment">// Batch (e.g. 5 at a time)</span>
+<span class="kw">async function</span> <span class="fn">batchProcess</span>(items, batchSize, fn) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < items.length; i += batchSize) {
+    <span class="kw">const</span> batch = items.<span class="fn">slice</span>(i, i + batchSize);
+    <span class="kw">await</span> Promise.<span class="fn">all</span>(batch.<span class="fn">map</span>(fn));
+  }
+}
+
+<span class="comment">// Async iteration (streams)</span>
+<span class="kw">for await</span> (<span class="kw">const</span> chunk <span class="kw">of</span> stream) {
+  <span class="fn">process</span>(chunk);
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">JavaScript Best Practices — Master List <span class="tag tag-expert">Expert</span></div>
+    <ul class="item-list">
+      <li>Use <code>const</code> by default, <code>let</code> when needed, never <code>var</code></li>
+      <li>Always use <code>===</code> strict equality</li>
+      <li>Prefer functional array methods over for loops</li>
+      <li>Write pure functions — avoid side effects where possible</li>
+      <li>Keep functions small and single-purpose (SRP)</li>
+      <li>Use <code>async/await</code> with <code>try/catch</code> for all async code</li>
+      <li>Never mutate function arguments or external state</li>
+      <li>Use named functions instead of anonymous for better stack traces</li>
+      <li>Avoid deep nesting — early returns and guard clauses</li>
+      <li>Document complex logic with comments that explain WHY, not WHAT</li>
+      <li>Set up ESLint + Prettier + TypeScript from project start</li>
+      <li>Write tests before fixing bugs. Aim for 80%+ coverage on business logic</li>
+      <li>Use <code>structuredClone()</code> for deep copies</li>
+      <li>Use <code>AbortController</code> to cancel fetch requests</li>
+      <li>Validate all user input both client AND server side</li>
+      <li>Never log sensitive data (tokens, passwords) to the console</li>
+      <li>Use semantic variable and function names — code is for humans first</li>
+    </ul>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- 25. HEALTH CHECK -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section-label" id="health">
+    <div class="icon" style="background:var(--yellow-light)">🏥</div>
+    <h2>25. JavaScript Website Health Check</h2>
+    <span class="count">3 schedules</span>
+  </div>
+
+  <p style="color:var(--grey-600);font-size:15px;margin-bottom:20px">Systematic maintenance tasks to keep your JavaScript-powered website fast, secure, and reliable. Use this as your operational checklist.</p>
+
+  <!-- DAILY -->
+  <div class="health-card">
+    <div class="health-header">
+      <div class="health-icon" style="background:var(--green-light)">☀️</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--grey-900)">Daily Checks</div>
+        <div style="font-size:14px;color:var(--grey-400)">Every business day — quick pulse check</div>
+      </div>
+      <span class="tag tag-daily" style="margin-left:auto">Daily</span>
+    </div>
+    <div class="health-meta">
+      <div class="meta-pill">⏱ Time: <span>15–30 min/day</span></div>
+      <div class="meta-pill">💪 Effort: <span>Low</span></div>
+      <div class="meta-pill">💰 Cost: <span>Free (tools already in use)</span></div>
+    </div>
+    <ul class="check-list">
+      <li>
+        <span class="check-icon">🔴</span>
+        <div>
+          <strong>Console Error Monitoring</strong>
+          Open browser DevTools Console on key pages. Check for JS runtime errors, uncaught exceptions, and failed network requests. Zero errors should be the daily target.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📡</span>
+        <div>
+          <strong>Uptime & Availability</strong>
+          Verify site loads correctly on desktop and mobile. Check status page if using uptime monitoring (UptimeRobot, Better Uptime — free tier available). Review any downtime alerts from the previous night.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">⚡</span>
+        <div>
+          <strong>Core User Flows</strong>
+          Manually test the 2–3 most critical user paths (login, checkout, form submit). Confirm they complete without JS errors or broken UI.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📊</span>
+        <div>
+          <strong>Error Tracking Dashboard</strong>
+          Review Sentry, Rollbar, or Datadog error inbox. Triage any new JS errors that appeared in the last 24 hours. Assign or mark as known.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🔔</span>
+        <div>
+          <strong>API Health</strong>
+          Confirm external APIs your JS depends on (payment gateway, maps, analytics) are returning expected responses. Check their status pages.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📱</span>
+        <div>
+          <strong>Mobile Smoke Test</strong>
+          Quick check on a real mobile device or browser emulator. JavaScript behavior can differ between desktop and mobile browsers (especially Safari on iOS).
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- WEEKLY -->
+  <div class="health-card">
+    <div class="health-header">
+      <div class="health-icon" style="background:var(--blue-light)">📅</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--grey-900)">Weekly Checks</div>
+        <div style="font-size:14px;color:var(--grey-400)">Every Monday or Friday — deeper review</div>
+      </div>
+      <span class="tag tag-weekly" style="margin-left:auto">Weekly</span>
+    </div>
+    <div class="health-meta">
+      <div class="meta-pill">⏱ Time: <span>1–3 hours/week</span></div>
+      <div class="meta-pill">💪 Effort: <span>Medium</span></div>
+      <div class="meta-pill">💰 Cost: <span>Free–$20/mo (Lighthouse CI, monitoring tools)</span></div>
+    </div>
+    <ul class="check-list">
+      <li>
+        <span class="check-icon">🚀</span>
+        <div>
+          <strong>Lighthouse / PageSpeed Audit</strong>
+          Run Lighthouse in Chrome DevTools or PageSpeed Insights on your 3 most important pages. Review Performance score — target 90+. Check: First Contentful Paint, Largest Contentful Paint, Total Blocking Time, Cumulative Layout Shift. Identify regressions from the previous week.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📦</span>
+        <div>
+          <strong>Bundle Size Check</strong>
+          Run <code>npm run build</code> and inspect bundle output (Vite's built-in report or <code>rollup-plugin-visualizer</code>). Track total JS bundle size week-over-week. Alert if it grows more than 5% without an intentional new feature.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🔒</span>
+        <div>
+          <strong>npm Vulnerability Scan</strong>
+          Run <code>npm audit</code>. Fix any high or critical severity issues. Run <code>npm outdated</code> to see which packages need updates. Patch minor/patch version updates that are safe. Log in a spreadsheet to track over time.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🧪</span>
+        <div>
+          <strong>Automated Test Suite</strong>
+          Run your full test suite (<code>npm test</code>). Ensure all tests pass. Review test coverage report. If coverage dropped below threshold, add tests before shipping next feature.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">♿</span>
+        <div>
+          <strong>Accessibility Audit</strong>
+          Run axe DevTools browser extension or Lighthouse Accessibility audit. Focus on: keyboard navigation, focus management (especially in JS-driven modals/drawers), ARIA attributes, color contrast. Target 90+ score.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📉</span>
+        <div>
+          <strong>JavaScript Error Rate Trends</strong>
+          Review your error monitoring dashboard weekly trends. Compare error count vs sessions. Is your error rate (errors/sessions) stable or increasing? Spike = something broke. Gradual increase = a new code path is buggy.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🌐</span>
+        <div>
+          <strong>Cross-Browser Testing</strong>
+          Use BrowserStack or Sauce Labs to run a quick smoke test across Chrome, Firefox, Safari, and Edge on the latest versions. Focus on JS-heavy interactive components.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🔑</span>
+        <div>
+          <strong>API Keys & Tokens Review</strong>
+          Confirm no API keys were accidentally committed to the repository this week (use <code>git log -p</code> or GitHub's secret scanning). Rotate any that are near expiration.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- MONTHLY -->
+  <div class="health-card">
+    <div class="health-header">
+      <div class="health-icon" style="background:var(--purple-light)">🗓️</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--grey-900)">Monthly Checks</div>
+        <div style="font-size:14px;color:var(--grey-400)">First week of each month — strategic review</div>
+      </div>
+      <span class="tag tag-monthly" style="margin-left:auto">Monthly</span>
+    </div>
+    <div class="health-meta">
+      <div class="meta-pill">⏱ Time: <span>4–8 hours/month</span></div>
+      <div class="meta-pill">💪 Effort: <span>High</span></div>
+      <div class="meta-pill">💰 Cost: <span>Free–$100/mo depending on tools used</span></div>
+    </div>
+    <ul class="check-list">
+      <li>
+        <span class="check-icon">📦</span>
+        <div>
+          <strong>Full Dependency Upgrade</strong>
+          Run <code>npm update</code> and review all changes. Test thoroughly after upgrading. For major version bumps, read changelogs and check for breaking changes. Use <code>npx npm-check-updates</code> to see all available updates at once.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🏗️</span>
+        <div>
+          <strong>Code Quality Audit</strong>
+          Run ESLint over the entire codebase (<code>npx eslint . --ext .js,.ts,.jsx,.tsx</code>). Review and fix all warnings and errors. Consider adding stricter ESLint rules as the codebase matures. Run a code complexity analysis (e.g., SonarQube Community or Code Climate).
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🔐</span>
+        <div>
+          <strong>Security Audit</strong>
+          Full <code>npm audit --audit-level=moderate</code> and fix everything. Review your Content Security Policy headers using Security Headers (securityheaders.com). Check for any newly disclosed vulnerabilities affecting your tech stack (CVE databases, framework changelogs). Rotate any long-lived tokens or secrets.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📈</span>
+        <div>
+          <strong>Performance Benchmarking</strong>
+          Run a full Web Vitals report using <code>web-vitals</code> library data from real users (if you have RUM — Real User Monitoring). Compare against previous month. Run a Lighthouse CI audit across all major routes and document results. Check Core Web Vitals in Google Search Console.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🧹</span>
+        <div>
+          <strong>Dead Code Elimination</strong>
+          Identify unused JS files, functions, and npm packages. Use <code>depcheck</code> to find unused dependencies. Remove them. Unused code increases bundle size and maintenance burden.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">📝</span>
+        <div>
+          <strong>Documentation Review</strong>
+          Update README, inline JSDoc comments, and API documentation. Ensure setup instructions are still accurate. If using Storybook, review component stories. Documentation debt compounds quickly.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🌍</span>
+        <div>
+          <strong>Browser Support Matrix Review</strong>
+          Check your analytics for actual browser/OS breakdown of your users. Update your <code>.browserslistrc</code> and Babel/PostCSS targets accordingly. Drop support for browsers below a meaningful usage threshold (e.g., < 1%).
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🎯</span>
+        <div>
+          <strong>Tech Debt Sprint</strong>
+          Reserve 10–20% of monthly development time for addressing JS tech debt: refactoring complex functions, improving error handling, increasing test coverage, migrating deprecated APIs. Defer no longer than 3 months.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🤖</span>
+        <div>
+          <strong>CI/CD Pipeline Review</strong>
+          Review build times and test durations. Optimize if > 10 min. Check for flaky tests. Review deployment pipeline health. Ensure staging environment reflects production.
+        </div>
+      </li>
+      <li>
+        <span class="check-icon">🆕</span>
+        <div>
+          <strong>Ecosystem Updates</strong>
+          Read ECMAScript proposal status. Check what's new in the frameworks you use (React, Vue, etc.). Evaluate if any new tool/library should replace something you're currently using. Attend or read summaries from JS community events (JSConf, etc.).
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Health Summary Table -->
+  <div class="card">
+    <div class="card-title">Health Check Summary</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="background:var(--grey-100)">
+            <th style="padding:10px 14px;text-align:left;border-radius:8px 0 0 8px;font-weight:600;color:var(--grey-600)">Schedule</th>
+            <th style="padding:10px 14px;text-align:left;font-weight:600;color:var(--grey-600)">Time Investment</th>
+            <th style="padding:10px 14px;text-align:left;font-weight:600;color:var(--grey-600)">Effort</th>
+            <th style="padding:10px 14px;text-align:left;border-radius:0 8px 8px 0;font-weight:600;color:var(--grey-600)">Typical Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--grey-100)">
+            <td style="padding:10px 14px"><strong>Daily</strong></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">15–30 min/day</td>
+            <td style="padding:10px 14px"><span class="tag tag-daily">Low</span></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">$0 — built-in tools</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--grey-100)">
+            <td style="padding:10px 14px"><strong>Weekly</strong></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">1–3 hrs/week</td>
+            <td style="padding:10px 14px"><span class="tag tag-weekly">Medium</span></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">$0–$20/mo monitoring</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px"><strong>Monthly</strong></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">4–8 hrs/month</td>
+            <td style="padding:10px 14px"><span class="tag tag-monthly">High</span></td>
+            <td style="padding:10px 14px;color:var(--grey-600)">$0–$100/mo tooling</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="best-practice" style="margin-top:14px"><strong>✅ Pro Tip</strong> Automate as much as possible. CI/CD handles tests and linting. UptimeRobot handles uptime. Sentry handles error tracking. Dependabot handles npm vulnerability PRs. Your manual time should focus on decisions, not repetitive checks.</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>JavaScript Mastery Reference</strong> · Built for developers who want the full picture<br>
+  <span style="margin-top:6px;display:block">ES2024 · Mobile-First · Apple Design Aesthetic</span>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" title="Back to top">↑</button>
+
+<script>
+  const btn = document.getElementById("scrollTop");
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("visible", window.scrollY > 400);
+  });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+</script>
+
+</body>
+</html>
